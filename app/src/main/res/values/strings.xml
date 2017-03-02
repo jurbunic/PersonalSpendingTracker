@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Personal Spending Tracker</string>
+    <string name="weekly_balance">Weekly balance</string>
+</resources>

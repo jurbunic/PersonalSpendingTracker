@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/label_weekly_balance"
+
+            android:text="@string/weekly_balance"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_huge"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/label_weekly_balance_number"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+
+            android:text="0 kn"
+            android:textSize="@dimen/text_size_huge"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:src="@drawable/thin_line"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/menu_container"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/imageButton"
+            />
+
+        <ImageButton
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/imageButton2"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/imageButton3"
+            />
+
+        <ImageButton
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/imageButton4"
+            />
+    </LinearLayout>
+</LinearLayout>

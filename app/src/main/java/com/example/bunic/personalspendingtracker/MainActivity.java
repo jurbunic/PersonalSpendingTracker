@@ -1,12 +1,10 @@
 package com.example.bunic.personalspendingtracker;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-
 import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
@@ -24,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         mFragmentManager.addOnBackStackChangedListener(this);
 
         MainScreenFragment msf = new MainScreenFragment();
-        mFragmentManager.beginTransaction().add(R.id.fragment_container,msf).commit();
+        StartFragment.StartNewFragment(msf,this,"1");
     }
 
     private Toolbar setToolbar(){

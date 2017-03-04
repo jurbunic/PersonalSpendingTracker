@@ -58,7 +58,11 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:id="@+id/imageButton"
+            android:id="@+id/button_expenses"
+
+            android:background="@color/colorExpenses"
+            android:src="@mipmap/icon_expenses"
+
             />
 
         <ImageButton
@@ -67,7 +71,10 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:id="@+id/imageButton2"
+            android:id="@+id/button_income"
+
+            android:background="@color/colorPrimary"
+            android:src="@mipmap/icon_income"
             />
     </LinearLayout>
     <LinearLayout

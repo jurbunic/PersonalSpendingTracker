@@ -44,6 +44,9 @@ dependencies {
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
 
+    //Charts
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.5'
+
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     testCompile 'junit:junit:4.12'
 }

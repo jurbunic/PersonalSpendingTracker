@@ -32,4 +32,10 @@ public class MainScreenFragment extends Fragment{
         StartFragment.StartNewFragment(mef,getActivity(),"2");
     }
 
+    @OnClick(R.id.button_income)
+    public void onButtonIncomeClick(){
+        MainIncomeFragment mif = new MainIncomeFragment();
+        StartFragment.StartNewFragment(mif,getActivity(),"2");
+    }
+
 }

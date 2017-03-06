@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="text_size_huge">25dp</dimen>
     <dimen name="rounded_button">60dp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
 </resources>

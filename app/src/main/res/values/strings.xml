@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">Personal Spending Tracker</string>
     <string name="weekly_balance">Weekly balance</string>
+
+    <string-array name="expenses_type">
+        <item>Transport</item>
+        <item>Food</item>
+        <item>Drink</item>
+        <item>Rent</item>
+        <item>Cultural</item>
+        <item>Hobbies</item>
+    </string-array>
+
+    <string-array name="expenses_recurrence">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
 </resources>

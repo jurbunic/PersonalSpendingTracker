@@ -9,11 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Toast;
 
 import com.example.bunic.personalspendingtracker.Adapters.RecyclerExpensesListAdapter;
 import com.example.bunic.personalspendingtracker.Charts.ChartMainClass;
+import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
 import com.github.mikephil.charting.charts.BarChart;
 
 import butterknife.BindView;
@@ -73,7 +72,8 @@ public class MainExpensesFragment extends Fragment{
 
     @OnClick(R.id.expense_nav_add_new_expense)
     public void onNavAddNewExpenseClick(){
-        Toast.makeText(getActivity().getApplicationContext(),"First option",Toast.LENGTH_SHORT).show();
+        AddNewExpenseFragment anef = new AddNewExpenseFragment();
+        StartFragment.StartNewFragmentBackstack(anef,getActivity());
     }
 
 }

@@ -30,6 +30,13 @@ public class StartFragment {
 
     }
 
+    public static void StartNewFragmentBackstack(Fragment fragment,Activity mActivity){
+        FragmentTransaction fm = mActivity.getFragmentManager().beginTransaction();
+        fm.replace(R.id.fragment_container, fragment);
+        fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fm.addToBackStack("1");
+        fm.commit();
+    }
     public static void StartNewFragment(Fragment fragment, Activity mActivity){
 
         FragmentManager fragmentManager = mActivity.getFragmentManager();

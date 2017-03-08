@@ -10,14 +10,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.bunic.database.ExpenseType;
 import com.example.bunic.personalspendingtracker.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jurica Bunić on 4.3.2017..
  */
 
-public class RecyclerExpensesListAdapter extends RecyclerView.Adapter<RecyclerExpensesListAdapter.ExpensesViewHolder>{
+public class ExpensesTop3RecyclerAdapter extends RecyclerView.Adapter<ExpensesTop3RecyclerAdapter.ExpensesViewHolder>{
 
+    private List<ExpenseType> expenseTypes;
     Context context;
 
     public static class ExpensesViewHolder extends RecyclerView.ViewHolder{
@@ -28,7 +33,6 @@ public class RecyclerExpensesListAdapter extends RecyclerView.Adapter<RecyclerEx
 
         public ExpensesViewHolder(View view){
             super(view);
-
             expenseIcon = (ImageView) view.findViewById(R.id.expense_list_item_icon);
             expenseName = (TextView) view.findViewById(R.id.expense_list_item_name);
             expenseCost = (TextView) view.findViewById(R.id.expense_list_item_cost);
@@ -36,8 +40,9 @@ public class RecyclerExpensesListAdapter extends RecyclerView.Adapter<RecyclerEx
         }
     }
 
-    public RecyclerExpensesListAdapter(Context context){
+    public ExpensesTop3RecyclerAdapter(Context context, List<ExpenseType> expenseTypes){
         this.context = context;
+        this.expenseTypes = expenseTypes;
     }
 
     @Override
@@ -49,13 +54,14 @@ public class RecyclerExpensesListAdapter extends RecyclerView.Adapter<RecyclerEx
 
     @Override
     public void onBindViewHolder(ExpensesViewHolder holder, int position) {
-        holder.expenseName.setText("Gorivo");
+        ExpenseType expenseType = expenseTypes.get(position);
+        holder.expenseName.setText(expenseType.getTypeName());
         holder.expenseCost.setText("320.00");
         holder.expenseCurrency.setText("HRK");
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return expenseTypes.size();
     }
 }

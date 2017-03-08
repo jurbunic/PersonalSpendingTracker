@@ -49,6 +49,8 @@ dependencies {
     //ConstraintLayout
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
 
+    //Database module
+    compile project (':database')
     
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     testCompile 'junit:junit:4.12'

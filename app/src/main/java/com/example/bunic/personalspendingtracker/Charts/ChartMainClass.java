@@ -1,6 +1,6 @@
 package com.example.bunic.personalspendingtracker.Charts;
 
-import android.graphics.Color;
+
 import android.view.View;
 
 import com.example.bunic.personalspendingtracker.R;

@@ -10,10 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.bunic.personalspendingtracker.Adapters.RecyclerExpensesListAdapter;
+import com.example.bunic.database.ExpenseType;
+import com.example.bunic.database.Static_data.ExpenseTypesData;
+import com.example.bunic.personalspendingtracker.Adapters.ExpensesTop3RecyclerAdapter;
 import com.example.bunic.personalspendingtracker.Charts.ChartMainClass;
 import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
 import com.github.mikephil.charting.charts.BarChart;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,9 +36,9 @@ public class MainExpensesFragment extends Fragment{
     LinearLayout expense_menu;
 
     BarChart chart;
-    RecyclerExpensesListAdapter expensesListAdapter;
+    ExpensesTop3RecyclerAdapter expensesListAdapter;
     RecyclerView recyclerView;
-
+    List<ExpenseType> expenseTypes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,9 +52,15 @@ public class MainExpensesFragment extends Fragment{
         super.onStart();
         ChartMainClass chartMainClass = new ChartMainClass(getView());
         chart = chartMainClass.getChartData();
+        expenseTypes = new ArrayList<>();
+        if(SQLite.select().from(ExpenseType.class).queryList().isEmpty()){
+            ExpenseTypesData.writeExpenseTypesToDb(expenseTypes);
+        }else {
+            expenseTypes =  ExpenseType.getAll();
+        }
 
-        recyclerView = (RecyclerView) getView().findViewById(R.id.expenses_list);
-        expensesListAdapter = new RecyclerExpensesListAdapter(getActivity().getApplicationContext());
+        recyclerView = (RecyclerView) getView().findViewById(R.id.expenses_list_top3);
+        expensesListAdapter = new ExpensesTop3RecyclerAdapter(getActivity().getApplicationContext(), expenseTypes);
         expensesListAdapter.notifyDataSetChanged();
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());

@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/expenses_list_top3"
+    android:id="@+id/expenses_detailed_list"
     >
 
 </android.support.v7.widget.RecyclerView>

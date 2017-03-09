@@ -3,6 +3,8 @@ package com.example.bunic.personalspendingtracker.Adapters;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +15,6 @@ import android.widget.TextView;
 import com.example.bunic.database.ExpenseType;
 import com.example.bunic.personalspendingtracker.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,6 +56,8 @@ public class ExpensesTop3RecyclerAdapter extends RecyclerView.Adapter<ExpensesTo
     @Override
     public void onBindViewHolder(ExpensesViewHolder holder, int position) {
         ExpenseType expenseType = expenseTypes.get(position);
+        int id = context.getResources().getIdentifier(expenseType.getImage(),"mipmap", context.getPackageName());
+        holder.expenseIcon.setImageResource(id);
         holder.expenseName.setText(expenseType.getTypeName());
         holder.expenseCost.setText("320.00");
         holder.expenseCurrency.setText("HRK");

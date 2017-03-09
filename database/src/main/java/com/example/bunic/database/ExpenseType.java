@@ -16,12 +16,15 @@ import java.util.List;
 public class ExpenseType extends BaseModel{
     @PrimaryKey
     @Column int id;
+    @Column String image;
     @Column String typeName;
 
     public ExpenseType() {
     }
-    public ExpenseType(int id, String typeName) {
+
+    public ExpenseType(int id, String image, String typeName) {
         this.id = id;
+        this.image = image;
         this.typeName = typeName;
     }
 
@@ -36,6 +39,12 @@ public class ExpenseType extends BaseModel{
     }
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public static List<ExpenseType> getAll(){

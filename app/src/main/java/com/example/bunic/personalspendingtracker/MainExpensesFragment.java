@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.bunic.database.Expense;
 import com.example.bunic.database.ExpenseType;
 import com.example.bunic.database.Static_data.ExpenseTypesData;
+import com.example.bunic.database.helper.ExpenseTypeHelp;
 import com.example.bunic.personalspendingtracker.Adapters.ExpensesTop3RecyclerAdapter;
 import com.example.bunic.personalspendingtracker.Charts.ChartMainClass;
 import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
@@ -30,7 +32,7 @@ import butterknife.OnClick;
  * Created by Jurica Bunić on 4.3.2017..
  */
 
-public class MainExpensesFragment extends Fragment{
+public class MainExpensesFragment extends Fragment {
 
     @BindView(R.id.expense_nav_menu)
     LinearLayout expense_menu;
@@ -38,7 +40,10 @@ public class MainExpensesFragment extends Fragment{
     BarChart chart;
     ExpensesTop3RecyclerAdapter expensesListAdapter;
     RecyclerView recyclerView;
-    List<ExpenseType> expenseTypes;
+
+    List<ExpenseType> allExpenseTypes;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,15 +57,39 @@ public class MainExpensesFragment extends Fragment{
         super.onStart();
         ChartMainClass chartMainClass = new ChartMainClass(getView());
         chart = chartMainClass.getChartData();
-        expenseTypes = new ArrayList<>();
-        if(SQLite.select().from(ExpenseType.class).queryList().isEmpty()){
-            ExpenseTypesData.writeExpenseTypesToDb(expenseTypes);
-        }else {
-            expenseTypes =  ExpenseType.getAll();
-        }
 
+
+        allExpenseTypes = new ArrayList<>();
+        List<Expense> allExpense = new ArrayList<>();
+
+        if(SQLite.select().from(ExpenseType.class).queryList().isEmpty()){
+            ExpenseTypesData.writeExpenseTypesToDb(allExpenseTypes);
+        }else {
+            allExpenseTypes = ExpenseType.getAll();
+            //allExpense = Expense.getAll();
+      //      expenseTypesName =  ExpenseType.getTop3Name();
+     //       expenseTypesTotalCost = ExpenseType.getTop3Cost();
+        }
+        List<ExpenseTypeHelp> listTop3 = new ArrayList<>();
+        Expense expense=null;
+        ExpenseType expenseType = new ExpenseType();
+        ExpenseTypeHelp help = new ExpenseTypeHelp();
+        ArrayList<Float> totalCostList = new ArrayList<>();
+        float totalCost;
+        for (int i=0;i<allExpenseTypes.size();i++){
+            totalCost = 0;
+            expenseType = allExpenseTypes.get(i);
+            allExpense = Expense.getByExpenseType(expenseType.getId());
+            for (int j=0;j<allExpense.size();j++){
+                expense = allExpense.get(j);
+                totalCost += expense.getCost();
+            }
+            totalCostList.add(totalCost);
+        }
+        totalCostList.size();
         recyclerView = (RecyclerView) getView().findViewById(R.id.expenses_list_top3);
-        expensesListAdapter = new ExpensesTop3RecyclerAdapter(getActivity().getApplicationContext(), expenseTypes);
+
+        expensesListAdapter = new ExpensesTop3RecyclerAdapter(getActivity().getApplicationContext(), allExpenseTypes );
         expensesListAdapter.notifyDataSetChanged();
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -70,6 +99,8 @@ public class MainExpensesFragment extends Fragment{
         recyclerView.setAdapter(expensesListAdapter);
 
     }
+
+
 
     //----------------------Floating Action Menu Navigation-----------------------
 
@@ -87,5 +118,12 @@ public class MainExpensesFragment extends Fragment{
         AddNewExpenseFragment anef = new AddNewExpenseFragment();
         StartFragment.StartNewFragmentBackstack(anef,getActivity());
     }
+
+    @OnClick(R.id.expense_nav_detailed_list)
+    public void onNavDetailedListClick(){
+        ExpensesDetailedListFragment edlf = new ExpensesDetailedListFragment();
+        StartFragment.StartNewFragmentBackstack(edlf,getActivity());
+    }
+
 
 }

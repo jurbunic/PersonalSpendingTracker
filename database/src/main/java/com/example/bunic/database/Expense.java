@@ -4,6 +4,7 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
@@ -65,6 +66,12 @@ public class Expense extends BaseModel {
         this.expenseType = expenseType;
     }
 
-    List<ExpenseType> expenseTypeList;
+    public static List<Expense> getAll(){
+        return SQLite.select().from(Expense.class).queryList();
+    }
+
+    public static List<Expense> getByExpenseType(int expenseTypeId){
+        return SQLite.select().from(Expense.class).where(ExpenseType_Table.id.eq(expenseTypeId)).queryList();
+    }
 
 }

@@ -1,23 +1,12 @@
 package com.example.bunic.database;
 
 
-import android.support.annotation.NonNull;
 
-import com.example.bunic.database.helper.ExpenseTypeHelp;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.sql.language.CursorResult;
-import com.raizlabs.android.dbflow.sql.language.Join;
-import com.raizlabs.android.dbflow.sql.language.NameAlias;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
-import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.raizlabs.android.dbflow.sql.language.Method.sum;
 import static com.raizlabs.android.dbflow.sql.language.SQLite.select;
 
 /**
@@ -25,7 +14,7 @@ import static com.raizlabs.android.dbflow.sql.language.SQLite.select;
  */
 @Table(database = MainDatabase.class)
 public class ExpenseType extends BaseModel{
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
     @Column int id;
     @Column String image;
     @Column String typeName;
@@ -59,10 +48,11 @@ public class ExpenseType extends BaseModel{
     }
 
     public static List<ExpenseType> getAll(){
-        return select().from(ExpenseType.class).queryList();
+        return select().from(ExpenseType.class).where().queryList();
     }
 
-    public static ExpenseType expenseType(String expenseName){
+    public static ExpenseType expenseType(String expenseName) {
         return select().from(ExpenseType.class).where(ExpenseType_Table.typeName.eq(expenseName)).querySingle();
     }
+
 }

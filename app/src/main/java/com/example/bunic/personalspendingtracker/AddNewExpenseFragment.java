@@ -7,7 +7,13 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+
+import com.example.bunic.database.Expense;
+import com.example.bunic.database.ExpenseType;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,9 +25,15 @@ import butterknife.OnTouch;
 
 public class AddNewExpenseFragment extends Fragment{
 
+    @BindView(R.id.spinner_cost_type)
+    Spinner costType;
+    @BindView(R.id.edit_cost_name)
+    EditText costName;
+    @BindView(R.id.edit_financial_cost)
+    EditText financialCost;
+
     @BindView(R.id.switch_reacuring_expense)
     SwitchCompat reacuringSwitch;
-
     @BindView(R.id.recurrence_options)
     LinearLayout reaccurenceLayout;
 
@@ -46,7 +58,18 @@ public class AddNewExpenseFragment extends Fragment{
             reaccurenceLayout.setVisibility(View.GONE);
         }
     }
+    @OnClick(R.id.expense_new_add_button)
+    public void onAddNewClick(){
+        Expense newExpense = new Expense();
+        newExpense.setExpenseType(ExpenseType.expenseType(costType.getSelectedItem().toString()));
+        newExpense.setName(costName.getText().toString());
+        newExpense.setCost(Float.parseFloat(financialCost.getText().toString()));
+        newExpense.setCurrency("HRK");
+        newExpense.insert();
 
+        getActivity().getFragmentManager().popBackStackImmediate();
+        refresh();
+    }
     @OnClick(R.id.expense_new_cancel_button)
     public void onCancelClick(){
         getActivity().getFragmentManager().popBackStackImmediate();

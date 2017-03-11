@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import com.example.bunic.database.Expense;
 import com.example.bunic.database.ExpenseType;
 import com.example.bunic.database.Static_data.ExpenseTypesData;
-import com.example.bunic.database.helper.ExpenseTypeHelp;
+import com.example.bunic.database.Top3ExpenseTypes;
 import com.example.bunic.personalspendingtracker.Adapters.ExpensesTop3RecyclerAdapter;
 import com.example.bunic.personalspendingtracker.Charts.ChartMainClass;
 import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
@@ -41,9 +41,7 @@ public class MainExpensesFragment extends Fragment {
     ExpensesTop3RecyclerAdapter expensesListAdapter;
     RecyclerView recyclerView;
 
-    List<ExpenseType> allExpenseTypes;
-
-
+    List<Top3ExpenseTypes> top3ExpenseTypes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,38 +56,20 @@ public class MainExpensesFragment extends Fragment {
         ChartMainClass chartMainClass = new ChartMainClass(getView());
         chart = chartMainClass.getChartData();
 
-
-        allExpenseTypes = new ArrayList<>();
-        List<Expense> allExpense = new ArrayList<>();
+        top3ExpenseTypes = new ArrayList<>();
+        List<Expense> expenseList = new ArrayList<>();
 
         if(SQLite.select().from(ExpenseType.class).queryList().isEmpty()){
-            ExpenseTypesData.writeExpenseTypesToDb(allExpenseTypes);
+            ExpenseTypesData.writeExpenseTypesToDb();
         }else {
-            allExpenseTypes = ExpenseType.getAll();
-            //allExpense = Expense.getAll();
-      //      expenseTypesName =  ExpenseType.getTop3Name();
-     //       expenseTypesTotalCost = ExpenseType.getTop3Cost();
+            expenseList = Expense.getAll();
+            top3ExpenseTypes = Top3ExpenseTypes.getTop3Types();
+            expenseList.size();
         }
-        List<ExpenseTypeHelp> listTop3 = new ArrayList<>();
-        Expense expense=null;
-        ExpenseType expenseType = new ExpenseType();
-        ExpenseTypeHelp help = new ExpenseTypeHelp();
-        ArrayList<Float> totalCostList = new ArrayList<>();
-        float totalCost;
-        for (int i=0;i<allExpenseTypes.size();i++){
-            totalCost = 0;
-            expenseType = allExpenseTypes.get(i);
-            allExpense = Expense.getByExpenseType(expenseType.getId());
-            for (int j=0;j<allExpense.size();j++){
-                expense = allExpense.get(j);
-                totalCost += expense.getCost();
-            }
-            totalCostList.add(totalCost);
-        }
-        totalCostList.size();
+
         recyclerView = (RecyclerView) getView().findViewById(R.id.expenses_list_top3);
 
-        expensesListAdapter = new ExpensesTop3RecyclerAdapter(getActivity().getApplicationContext(), allExpenseTypes );
+        expensesListAdapter = new ExpensesTop3RecyclerAdapter(getActivity().getApplicationContext(), top3ExpenseTypes );
         expensesListAdapter.notifyDataSetChanged();
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());

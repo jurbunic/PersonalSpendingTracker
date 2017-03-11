@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bunic.database.ExpenseType;
+import com.example.bunic.database.Top3ExpenseTypes;
 import com.example.bunic.personalspendingtracker.R;
 
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public class ExpensesTop3RecyclerAdapter extends RecyclerView.Adapter<ExpensesTop3RecyclerAdapter.ExpensesViewHolder>{
 
-    private List<ExpenseType> expenseTypes;
+    private List<Top3ExpenseTypes> expenseTypes;
     Context context;
 
     public static class ExpensesViewHolder extends RecyclerView.ViewHolder{
@@ -41,7 +42,7 @@ public class ExpensesTop3RecyclerAdapter extends RecyclerView.Adapter<ExpensesTo
         }
     }
 
-    public ExpensesTop3RecyclerAdapter(Context context, List<ExpenseType> expenseTypes){
+    public ExpensesTop3RecyclerAdapter(Context context, List<Top3ExpenseTypes> expenseTypes){
         this.context = context;
         this.expenseTypes = expenseTypes;
     }
@@ -55,11 +56,11 @@ public class ExpensesTop3RecyclerAdapter extends RecyclerView.Adapter<ExpensesTo
 
     @Override
     public void onBindViewHolder(ExpensesViewHolder holder, int position) {
-        ExpenseType expenseType = expenseTypes.get(position);
-        int id = context.getResources().getIdentifier(expenseType.getImage(),"mipmap", context.getPackageName());
+        Top3ExpenseTypes expenseType = expenseTypes.get(position);
+        int id = context.getResources().getIdentifier(expenseType.getExpenseTypeIcon(),"mipmap", context.getPackageName());
         holder.expenseIcon.setImageResource(id);
-        holder.expenseName.setText(expenseType.getTypeName());
-        holder.expenseCost.setText("320.00");
+        holder.expenseName.setText(expenseType.getExpenseTypeName());
+        holder.expenseCost.setText(expenseType.getExpenseTypeCost().toString());
         holder.expenseCurrency.setText("HRK");
     }
 

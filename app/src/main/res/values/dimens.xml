@@ -5,4 +5,6 @@
     <dimen name="text_size_huge">25dp</dimen>
     <dimen name="rounded_button">60dp</dimen>
     <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="list_item_margin">4dp</dimen>
+    <dimen name="list_item_icon">50dp</dimen>
 </resources>

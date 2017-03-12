@@ -5,6 +5,8 @@ package com.example.bunic.database;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.util.List;
 import static com.raizlabs.android.dbflow.sql.language.SQLite.select;
@@ -19,7 +21,16 @@ public class ExpenseType extends BaseModel{
     @Column String image;
     @Column String typeName;
 
+    List<Expense> expenseList;
+
     public ExpenseType() {
+    }
+
+    public ExpenseType(ExpenseType expenseType){
+        this.id = expenseType.getId();
+        this.image = expenseType.getImage();
+        this.typeName = expenseType.getTypeName();
+        this.expenseList = expenseType.getExpenseList();
     }
 
     public ExpenseType(int id, String image, String typeName) {
@@ -49,6 +60,15 @@ public class ExpenseType extends BaseModel{
 
     public static List<ExpenseType> getAll(){
         return select().from(ExpenseType.class).where().queryList();
+    }
+
+    public List<Expense> getExpenseList(){
+        if(expenseList == null ||expenseList.isEmpty()){
+            expenseList = SQLite.select().from(Expense.class)
+                    .where(Expense_Table.expenseType_id.eq(id))
+                    .queryList();
+        }
+        return expenseList;
     }
 
     public static ExpenseType expenseType(String expenseName) {

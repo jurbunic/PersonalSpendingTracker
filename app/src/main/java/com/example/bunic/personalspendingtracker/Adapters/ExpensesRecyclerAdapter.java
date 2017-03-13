@@ -38,7 +38,7 @@ public class ExpensesRecyclerAdapter extends ExpandableRecyclerAdapter<Expandabl
     @Override
     public ExpenseViewHolder onCreateChildViewHolder(@NonNull ViewGroup childViewGroup, int viewType) {
         View expenseView = mInflator.inflate(R.layout.list_item_expenses_child, childViewGroup, false);
-        return new ExpenseViewHolder(expenseView);
+        return new ExpenseViewHolder(expenseView, this);
     }
 
     @Override

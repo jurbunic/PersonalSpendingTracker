@@ -10,4 +10,7 @@
     <color name="colorAccent">#00bcd4</color>
 
     <color name="colorExpenses">#F44336</color>
+    <color name="colorDarkGray">#3d3d3d</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorWhite">#FFF</color>
 </resources>

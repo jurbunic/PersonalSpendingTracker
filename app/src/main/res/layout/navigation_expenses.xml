@@ -46,13 +46,15 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+
                 android:fontFamily="sans-serif"
                 android:padding="4dip"
 
                 android:text="Add new expense"
                 android:textAlignment="center"
 
-                android:textColor="@android:color/holo_red_dark"
+                android:background="@drawable/fab_text_background"
+                android:textColor="@color/colorWhite"
                 android:typeface="normal"
                 />
 
@@ -83,13 +85,15 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+
                 android:fontFamily="sans-serif"
                 android:padding="5dip"
 
                 android:text="Detailed list"
                 android:textAlignment="center"
 
-                android:textColor="@android:color/holo_red_dark"
+                android:background="@drawable/fab_text_background"
+                android:textColor="@color/colorWhite"
                 android:typeface="normal"
                 />
 

@@ -12,6 +12,8 @@ import com.example.bunic.personalspendingtracker.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
+import butterknife.OnLongClick;
 
 /**
  * Created by Jurica Bunić on 12.3.2017..

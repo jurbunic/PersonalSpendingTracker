@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:id="@+id/button_expenses"
 
-            android:background="@color/colorExpenses"
+            android:background="@color/colorPrimary"
             android:src="@mipmap/icon_expenses"
 
             />
@@ -86,7 +86,10 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:id="@+id/imageButton3"
+            android:id="@+id/button_user_profile"
+
+            android:background="@color/colorPrimary"
+            android:src="@mipmap/icon_user_profile"
             />
 
         <ImageButton
@@ -95,7 +98,10 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:id="@+id/imageButton4"
+            android:id="@+id/button_app_options"
+
+            android:background="@color/colorPrimary"
+            android:src="@mipmap/icon_app_options"
             />
     </LinearLayout>
 </LinearLayout>

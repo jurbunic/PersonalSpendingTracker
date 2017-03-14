@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 
 import com.example.bunic.database.Expense;
 import com.example.bunic.database.ExpenseType;
-import com.example.bunic.database.Static_data.ExpenseTypesData;
+import com.example.bunic.database.static_data.ExpenseTypesData;
 import com.example.bunic.database.Top3ExpenseTypes;
 import com.example.bunic.personalspendingtracker.Adapters.ExpensesTop3RecyclerAdapter;
 import com.example.bunic.personalspendingtracker.Charts.ChartMainClass;

@@ -1,8 +1,6 @@
-package com.example.bunic.database.Static_data;
+package com.example.bunic.database.static_data;
 
 import com.example.bunic.database.ExpenseType;
-
-import java.util.List;
 
 /**
  * Created by Jurica Bunić on 8.3.2017..

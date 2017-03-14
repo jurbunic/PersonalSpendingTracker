@@ -67,17 +67,4 @@ public class Top3ExpenseTypes extends BaseQueryModel {
                 .queryCustomList(Top3ExpenseTypes.class);
     }
 
-    public static List<Top3ExpenseTypes> getAllDetailed(){
-        return SQLite
-                .select(ExpenseType_Table.typeName.as("expenseTypeName")
-                        ,ExpenseType_Table.image.as("expenseTypeIcon")
-                        ,sum(Expense_Table.cost).as("expenseTypeCost"))
-                .from(ExpenseType.class).join(Expense.class, Join.JoinType.INNER)
-                .on(ExpenseType_Table.id.withTable().eq(Expense_Table.expenseType_id.withTable()))
-                .groupBy(ExpenseType_Table.typeName)
-                .orderBy(NameAlias.builder("expenseTypeCost").build(),false)
-                .queryCustomList(Top3ExpenseTypes.class);
-    }
-
-
 }

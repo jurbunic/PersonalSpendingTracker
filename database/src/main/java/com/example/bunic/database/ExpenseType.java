@@ -6,7 +6,6 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.util.List;
 import static com.raizlabs.android.dbflow.sql.language.SQLite.select;
@@ -74,5 +73,7 @@ public class ExpenseType extends BaseModel{
     public static ExpenseType expenseType(String expenseName) {
         return select().from(ExpenseType.class).where(ExpenseType_Table.typeName.eq(expenseName)).querySingle();
     }
+
+
 
 }

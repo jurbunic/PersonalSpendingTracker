@@ -17,7 +17,6 @@ import com.example.bunic.database.ExpenseType;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTouch;
 
 /**
  * Created by Jurica Bunić on 6.3.2017..
@@ -47,7 +46,6 @@ public class AddNewExpenseFragment extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
-
     }
 
     @OnClick(R.id.switch_reacuring_expense)

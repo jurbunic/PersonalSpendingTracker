@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import com.example.bunic.database.Expense;
 import com.example.bunic.database.ExpenseType;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -63,6 +65,7 @@ public class AddNewExpenseFragment extends Fragment{
         newExpense.setName(costName.getText().toString());
         newExpense.setCost(Float.parseFloat(financialCost.getText().toString()));
         newExpense.setCurrency("HRK");
+        newExpense.setDate(Calendar.getInstance().getTime());
         newExpense.insert();
 
         getActivity().getFragmentManager().popBackStackImmediate();

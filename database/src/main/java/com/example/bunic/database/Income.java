@@ -4,39 +4,34 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
-import java.util.List;
 
 /**
- * Created by Jurica Bunić on 8.3.2017..
+ * Created by Jurica Bunić on 16.3.2017..
  */
 @Table(database = MainDatabase.class)
-public class Expense extends BaseModel {
+public class Income extends BaseModel {
     @PrimaryKey(autoincrement = true)
-    @Column int id;
+    @Column
+    int id;
     @Column String name;
     @Column Float cost;
     @Column String currency;
-    @Column
-    Date date;
+    @Column Date date;
+    @ForeignKey (tableClass = IncomeType.class)
+    @Column IncomeType type;
 
-    @Column
-    @ForeignKey(tableClass = ExpenseType.class)
-    ExpenseType expenseType;
-
-    public Expense() {
+    public Income() {
     }
-
-    public Expense(int id, String name, Float cost, String currency, Date date, ExpenseType expenseType) {
+    public Income(int id, String name, Float cost, String currency, Date date, IncomeType type) {
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.currency = currency;
         this.date = date;
-        this.expenseType = expenseType;
+        this.type = type;
     }
 
     public int getId() {
@@ -63,29 +58,16 @@ public class Expense extends BaseModel {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-    public ExpenseType getExpenseType() {
-        return expenseType;
-    }
-    public void setExpenseType(ExpenseType expenseType) {
-        this.expenseType = expenseType;
-    }
     public Date getDate() {
         return date;
     }
     public void setDate(Date date) {
         this.date = date;
     }
-
-    public static List<Expense> getAll(){
-        return SQLite.select().from(Expense.class).queryList();
+    public IncomeType getType() {
+        return type;
     }
-
-    public static List<Expense> getByExpenseType(int expenseTypeId){
-        return SQLite.select().from(Expense.class).where(ExpenseType_Table.id.eq(expenseTypeId)).queryList();
+    public void setType(IncomeType type) {
+        this.type = type;
     }
-
-    public static Expense getExpenseById(int id){
-        return SQLite.select().from(Expense.class).where(Expense_Table.id.eq(id)).querySingle();
-    }
-
 }

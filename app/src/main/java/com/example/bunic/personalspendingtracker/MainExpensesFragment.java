@@ -61,11 +61,14 @@ public class MainExpensesFragment extends Fragment {
 
         if(SQLite.select().from(ExpenseType.class).queryList().isEmpty()){
             ExpenseTypesData.writeExpenseTypesToDb();
+            top3ExpenseTypes = Top3ExpenseTypes.getTop3Types();
         }else {
             expenseList = Expense.getAll();
-            top3ExpenseTypes = Top3ExpenseTypes.getTop3Types();
             expenseList.size();
+            top3ExpenseTypes = Top3ExpenseTypes.getTop3Types();
         }
+
+
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.expenses_list_top3);
 

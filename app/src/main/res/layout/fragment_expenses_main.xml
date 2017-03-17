@@ -43,7 +43,7 @@
                 android:layout_marginStart="16dp"
                 app:layout_constraintLeft_toLeftOf="parent">
 
-                <include layout="@layout/recyclelist_expenses_fixed"
+                <include layout="@layout/recyclelist_expenses_main"
                     android:layout_width="338dp"
                     android:layout_height="wrap_content"
                     />

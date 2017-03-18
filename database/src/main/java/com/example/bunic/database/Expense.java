@@ -4,9 +4,11 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.Condition;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -86,6 +88,14 @@ public class Expense extends BaseModel {
 
     public static Expense getExpenseById(int id){
         return SQLite.select().from(Expense.class).where(Expense_Table.id.eq(id)).querySingle();
+    }
+
+    public static List<Expense> getExpenseByWeek(Date startDate, Date endDate){
+        return SQLite
+                .select()
+                .from(Expense.class)
+                .where(Expense_Table.date.between(startDate).and(endDate))
+                .queryList();
     }
 
 }

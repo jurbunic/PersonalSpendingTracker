@@ -3,12 +3,18 @@ package com.example.bunic.personalspendingtracker.Charts;
 
 import android.view.View;
 
+import com.example.bunic.database.Expense;
 import com.example.bunic.personalspendingtracker.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Jurica Bunić on 4.3.2017..
@@ -16,14 +22,21 @@ import java.util.ArrayList;
 
 public class ChartMainClass {
 
-
+    List<Expense> expenseList;
+    Calendar calendar;
     ArrayList<BarEntry> yAxisValues;
     ArrayList<String> xAxisValues;
+
+    Date firstDayOfWeek;
+    Date lastDayOfWeek;
 
     BarChart chart;
 
     public ChartMainClass(View view){
         chart = (BarChart) view.findViewById(R.id.expenses_main_barchart);
+        expenseList = new ArrayList<>();
+        calendar = Calendar.getInstance();
+
     }
 
     public BarChart getChartData(){
@@ -34,16 +47,23 @@ public class ChartMainClass {
     }
 
     private BarDataSet getDataSet(){
-
         yAxisValues = new ArrayList<>();
-        yAxisValues.add(new BarEntry(20f,0));
-        yAxisValues.add(new BarEntry(22f,1));
-        yAxisValues.add(new BarEntry(24f,2));
-        yAxisValues.add(new BarEntry(26f,3));
-        yAxisValues.add(new BarEntry(28f,4));
-        yAxisValues.add(new BarEntry(30f,5));
-        yAxisValues.add(new BarEntry(32f,6));
 
+        Date dateStart = new Date();
+        Date dateEnd = new Date();
+
+        calendar.add(Calendar.DATE,-3);
+        dateStart = calendar.getTime();
+        calendar.add(Calendar.DATE,+7);
+        dateEnd = calendar.getTime();
+
+        expenseList = Expense.getExpenseByWeek(dateStart,dateEnd);
+
+        for(int i=0;i<expenseList.size();i++){
+            calendar.setTime(expenseList.get(i).getDate());
+            int a = calendar.get(Calendar.DAY_OF_WEEK);
+            yAxisValues.add(new BarEntry(expenseList.get(i).getCost(),calendar.get(Calendar.DAY_OF_WEEK)-2));
+        }
 
         BarDataSet barDataSet = new BarDataSet(yAxisValues,"");
 

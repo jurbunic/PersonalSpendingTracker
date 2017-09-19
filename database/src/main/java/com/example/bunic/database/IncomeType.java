@@ -21,6 +21,11 @@ public class IncomeType extends BaseModel {
     public IncomeType() {
     }
 
+    public IncomeType(String image, String typeName) {
+        this.image = image;
+        this.typeName = typeName;
+    }
+
     public IncomeType(int id, String image, String typeName) {
         this.id = id;
         this.image = image;

@@ -3,6 +3,7 @@ package com.example.bunic.personalspendingtracker.Charts;
 
 import android.view.View;
 
+import com.example.bunic.database.DailyExpenseChartData;
 import com.example.bunic.database.Expense;
 import com.example.bunic.personalspendingtracker.R;
 import com.github.mikephil.charting.charts.BarChart;
@@ -10,7 +11,6 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ChartMainClass {
 
-    List<Expense> expenseList;
+    List<DailyExpenseChartData> expenseList;
     Calendar calendar;
     ArrayList<BarEntry> yAxisValues;
     ArrayList<String> xAxisValues;
@@ -57,11 +57,9 @@ public class ChartMainClass {
         calendar.add(Calendar.DATE,+7);
         dateEnd = calendar.getTime();
 
-        expenseList = Expense.getExpenseByWeek(dateStart,dateEnd);
-
+        expenseList = DailyExpenseChartData.getExpenseByWeekGrouped(dateStart,dateEnd);
         for(int i=0;i<expenseList.size();i++){
             calendar.setTime(expenseList.get(i).getDate());
-            int a = calendar.get(Calendar.DAY_OF_WEEK);
             yAxisValues.add(new BarEntry(expenseList.get(i).getCost(),calendar.get(Calendar.DAY_OF_WEEK)-2));
         }
 
@@ -72,13 +70,13 @@ public class ChartMainClass {
 
     private ArrayList<String> getXAxisValues(){
         xAxisValues = new ArrayList<>();
-        xAxisValues.add("Monday");
-        xAxisValues.add("Tuesday");
-        xAxisValues.add("Wednesday");
-        xAxisValues.add("Thursday");
-        xAxisValues.add("Friday");
-        xAxisValues.add("Saturday");
-        xAxisValues.add("Sunday");
+        xAxisValues.add("Mon");
+        xAxisValues.add("Tue");
+        xAxisValues.add("Wed");
+        xAxisValues.add("Thu");
+        xAxisValues.add("Fri");
+        xAxisValues.add("Sat");
+        xAxisValues.add("Sun");
         return xAxisValues;
     }
 

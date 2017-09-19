@@ -8,13 +8,13 @@ import com.example.bunic.database.IncomeType;
 
 public class IncomeTypesData {
     public static void writeIncomeTypesToDb(){
-        IncomeType job = new IncomeType(1,"list_icon_income_job", "Job");
+        IncomeType job = new IncomeType("list_icon_income_job", "Job");
         job.save();
 
-        IncomeType allowance = new IncomeType(2,"list_icon_income_allowance","Allowance");
+        IncomeType allowance = new IncomeType("list_icon_income_allowance","Allowance");
         allowance.save();
 
-        IncomeType gift = new IncomeType(3, "list_icon_income_gift", "Gift");
+        IncomeType gift = new IncomeType("list_icon_income_gift", "Gift");
         gift.save();
 
     }

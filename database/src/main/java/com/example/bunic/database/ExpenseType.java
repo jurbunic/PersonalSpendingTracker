@@ -25,6 +25,11 @@ public class ExpenseType extends BaseModel{
     public ExpenseType() {
     }
 
+    public ExpenseType(String image, String typeName) {
+        this.image = image;
+        this.typeName = typeName;
+    }
+
     public ExpenseType(ExpenseType expenseType){
         this.id = expenseType.getId();
         this.image = expenseType.getImage();

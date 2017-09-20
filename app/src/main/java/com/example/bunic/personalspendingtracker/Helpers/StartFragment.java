@@ -13,38 +13,36 @@ import com.example.bunic.personalspendingtracker.R;
 public class StartFragment {
     public static void StartNewFragment(Fragment fragment, Activity mActivity, String tag){
         if(mActivity.getFragmentManager().getBackStackEntryCount()>1){
+
             FragmentManager fragmentManager = mActivity.getFragmentManager();
             fragmentManager.popBackStack();
             fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .replace(R.id.viewpager, fragment)
                     .addToBackStack("2")
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
         }else {
             FragmentTransaction fm = mActivity.getFragmentManager().beginTransaction();
-            fm.replace(R.id.fragment_container, fragment);
+            fm.replace(R.id.viewpager, fragment);
             fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             fm.addToBackStack(tag);
             fm.commit();
         }
-
     }
 
     public static void StartNewFragmentBackstack(Fragment fragment,Activity mActivity){
         FragmentTransaction fm = mActivity.getFragmentManager().beginTransaction();
-        fm.replace(R.id.fragment_container, fragment);
+        fm.replace(R.id.viewpager, fragment);
         fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fm.addToBackStack("1");
         fm.commit();
     }
-    public static void StartNewFragment(Fragment fragment, Activity mActivity){
 
-        FragmentManager fragmentManager = mActivity.getFragmentManager();
-        fragmentManager.popBackStack();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack("2")
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
+    public static void ReplaceFragmentInViewPager(Fragment fragment, Activity mActivity, int fragmentLayoutId){
+        FragmentTransaction fm = mActivity.getFragmentManager().beginTransaction();
+        fm.replace(fragmentLayoutId, fragment);
+        fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fm.addToBackStack("1");
+        fm.commit();
     }
 }

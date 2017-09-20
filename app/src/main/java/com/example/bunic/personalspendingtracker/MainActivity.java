@@ -1,15 +1,28 @@
 package com.example.bunic.personalspendingtracker;
 
 import android.app.FragmentManager;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+
+import com.example.bunic.personalspendingtracker.Adapters.MainPagerAdapter;
 import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
+    @BindView(R.id.tabs)
+    TabLayout tabLayout;
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
+
     private Toolbar toolbar;
     private FragmentManager mFragmentManager;
 
@@ -17,15 +30,15 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        setToolbar();
-        FlowManager.init(new FlowConfig.Builder(this).build());
-
+        ButterKnife.bind(this);
         mFragmentManager = getFragmentManager();
         mFragmentManager.addOnBackStackChangedListener(this);
-
-        MainScreenFragment msf = new MainScreenFragment();
-        StartFragment.StartNewFragment(msf,this,"1");
+        setToolbar();
+        FlowManager.init(new FlowConfig.Builder(this).build());
+        setupViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(3);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabNames();
     }
 
     private Toolbar setToolbar(){
@@ -36,10 +49,24 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         return toolbar;
     }
 
+    private void setupTabNames(){
+        tabLayout.getTabAt(0).setText("Home");
+        tabLayout.getTabAt(1).setText("Incomes");
+        tabLayout.getTabAt(2).setText("Expenses");
+    }
+
+    private void setupViewPager(final ViewPager viewPager){
+        final MainPagerAdapter adapter = new MainPagerAdapter(mFragmentManager);
+        adapter.addFragment(new MainScreenFragment(),"Home");
+        adapter.addFragment(new MainIncomeFragment(),"Incomes");
+        adapter.addFragment(new MainExpensesFragment(),"Expenses");
+        viewPager.setAdapter(adapter);
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(mFragmentManager.getBackStackEntryCount()<1){
+        if(mFragmentManager.getBackStackEntryCount()<0){
             this.finish();
         }
     }

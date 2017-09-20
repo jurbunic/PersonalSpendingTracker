@@ -81,6 +81,8 @@ public class MainExpensesFragment extends Fragment {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(expensesListAdapter);
 
+
+
     }
 
 
@@ -99,13 +101,13 @@ public class MainExpensesFragment extends Fragment {
     @OnClick(R.id.expense_nav_add_new_expense)
     public void onNavAddNewExpenseClick(){
         AddNewExpenseFragment anef = new AddNewExpenseFragment();
-        StartFragment.StartNewFragmentBackstack(anef,getActivity());
+        StartFragment.ReplaceFragmentInViewPager(anef,getActivity(), R.id.root_main_expense);
     }
 
     @OnClick(R.id.expense_nav_detailed_list)
     public void onNavDetailedListClick(){
         ExpensesDetailedListFragment edlf = new ExpensesDetailedListFragment();
-        StartFragment.StartNewFragmentBackstack(edlf,getActivity());
+        StartFragment.ReplaceFragmentInViewPager(edlf,getActivity(), R.id.root_main_expense);
     }
 
 

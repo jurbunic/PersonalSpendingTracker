@@ -67,7 +67,6 @@ public class AddNewExpenseFragment extends Fragment{
         newExpense.setCurrency("HRK");
         newExpense.setDate(Calendar.getInstance().getTime());
         newExpense.insert();
-
         getActivity().getFragmentManager().popBackStackImmediate();
         refresh();
     }
@@ -78,7 +77,7 @@ public class AddNewExpenseFragment extends Fragment{
     }
 
     public void refresh(){
-        Fragment f = getFragmentManager().findFragmentById(R.id.fragment_container);
+        Fragment f = getFragmentManager().findFragmentById(R.id.viewpager);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(f).attach(f).commit();
     }

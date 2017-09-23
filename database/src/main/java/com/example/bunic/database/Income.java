@@ -4,9 +4,11 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Jurica Bunić on 16.3.2017..
@@ -69,5 +71,9 @@ public class Income extends BaseModel {
     }
     public void setType(IncomeType type) {
         this.type = type;
+    }
+
+    public static List<Income> getAll(){
+        return SQLite.select().from(Income.class).queryList();
     }
 }

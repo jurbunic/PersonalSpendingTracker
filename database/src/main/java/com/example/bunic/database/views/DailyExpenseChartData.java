@@ -1,5 +1,8 @@
-package com.example.bunic.database;
+package com.example.bunic.database.views;
 
+import com.example.bunic.database.Expense;
+import com.example.bunic.database.Expense_Table;
+import com.example.bunic.database.MainDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.QueryModel;
 import com.raizlabs.android.dbflow.sql.language.Method;
@@ -48,7 +51,8 @@ public class DailyExpenseChartData extends BaseQueryModel{
                 .select(Expense_Table.date.as("date"), Method.sum(Expense_Table.cost).as("cost"))
                 .from(Expense.class)
                 .where(Expense_Table.date.between(startDate).and(endDate))
-                .groupBy(Method.strftime("%d",Expense_Table.date.toString()))
+                .groupBy(Expense_Table.date)
                 .queryCustomList(DailyExpenseChartData.class);
     }
+
 }

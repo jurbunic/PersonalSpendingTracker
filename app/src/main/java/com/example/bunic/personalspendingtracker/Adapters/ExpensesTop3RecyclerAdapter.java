@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.bunic.database.ExpenseType;
-import com.example.bunic.database.Top3ExpenseTypes;
+import com.example.bunic.database.views.Top3ExpenseTypes;
 import com.example.bunic.personalspendingtracker.R;
 
 import java.util.List;

@@ -8,6 +8,8 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.List;
 
+import static com.raizlabs.android.dbflow.sql.language.SQLite.select;
+
 /**
  * Created by Jurica Bunić on 15.3.2017..
  */
@@ -53,5 +55,9 @@ public class IncomeType extends BaseModel {
 
     public static List<IncomeType> getAll(){
         return SQLite.select().from(IncomeType.class).queryList();
+    }
+
+    public static IncomeType incomeType(String incomeName) {
+        return select().from(IncomeType.class).where(IncomeType_Table.typeName.eq(incomeName)).querySingle();
     }
 }

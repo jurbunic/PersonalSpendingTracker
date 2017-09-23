@@ -1,8 +1,13 @@
-package com.example.bunic.database;
+package com.example.bunic.database.views;
 
 
 
 
+import com.example.bunic.database.Expense;
+import com.example.bunic.database.ExpenseType;
+import com.example.bunic.database.ExpenseType_Table;
+import com.example.bunic.database.Expense_Table;
+import com.example.bunic.database.MainDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.QueryModel;
 import com.raizlabs.android.dbflow.sql.language.Join;

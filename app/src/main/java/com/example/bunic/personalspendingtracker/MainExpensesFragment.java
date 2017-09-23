@@ -1,6 +1,7 @@
 package com.example.bunic.personalspendingtracker;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,9 +14,10 @@ import android.widget.LinearLayout;
 import com.example.bunic.database.Expense;
 import com.example.bunic.database.ExpenseType;
 import com.example.bunic.database.static_data.ExpenseTypesData;
-import com.example.bunic.database.Top3ExpenseTypes;
+import com.example.bunic.database.views.Top3ExpenseTypes;
 import com.example.bunic.personalspendingtracker.Adapters.ExpensesTop3RecyclerAdapter;
 import com.example.bunic.personalspendingtracker.Charts.ChartMainClass;
+import com.example.bunic.personalspendingtracker.Helpers.FragmentRefresher;
 import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -32,7 +34,7 @@ import butterknife.OnClick;
  * Created by Jurica Bunić on 4.3.2017..
  */
 
-public class MainExpensesFragment extends Fragment {
+public class MainExpensesFragment extends Fragment implements FragmentRefresher{
 
     @BindView(R.id.expense_nav_menu)
     LinearLayout expense_menu;
@@ -68,8 +70,6 @@ public class MainExpensesFragment extends Fragment {
             top3ExpenseTypes = Top3ExpenseTypes.getTop3Types();
         }
 
-
-
         recyclerView = (RecyclerView) getView().findViewById(R.id.expenses_list_top3);
 
         expensesListAdapter = new ExpensesTop3RecyclerAdapter(getActivity().getApplicationContext(), top3ExpenseTypes );
@@ -80,12 +80,7 @@ public class MainExpensesFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(expensesListAdapter);
-
-
-
     }
-
-
 
     //----------------------Floating Action Menu Navigation-----------------------
 
@@ -101,14 +96,24 @@ public class MainExpensesFragment extends Fragment {
     @OnClick(R.id.expense_nav_add_new_expense)
     public void onNavAddNewExpenseClick(){
         AddNewExpenseFragment anef = new AddNewExpenseFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("REFRESHER", this);
+        anef.setArguments(bundle);
         StartFragment.ReplaceFragmentInViewPager(anef,getActivity(), R.id.root_main_expense);
     }
 
     @OnClick(R.id.expense_nav_detailed_list)
     public void onNavDetailedListClick(){
         ExpensesDetailedListFragment edlf = new ExpensesDetailedListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("REFRESHER", this);
+        edlf.setArguments(bundle);
         StartFragment.ReplaceFragmentInViewPager(edlf,getActivity(), R.id.root_main_expense);
     }
 
-
+    @Override
+    public void refreshFragment() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+    }
 }

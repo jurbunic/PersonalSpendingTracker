@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.bunic.database.IncomeType;
+import com.example.bunic.database.views.Top3IncomeTypes;
 import com.example.bunic.personalspendingtracker.R;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 public class IncomesTop3RecyclerAdapter extends RecyclerView.Adapter<IncomesTop3RecyclerAdapter.IncomeViewHolder>{
-    private List<IncomeType> incomeTypes;
+    private List<Top3IncomeTypes> incomeTypes;
     Context context;
 
     public static class IncomeViewHolder extends RecyclerView.ViewHolder{
@@ -36,7 +36,7 @@ public class IncomesTop3RecyclerAdapter extends RecyclerView.Adapter<IncomesTop3
         }
     }
 
-    public IncomesTop3RecyclerAdapter(Context context, List<IncomeType> incomeTypes){
+    public IncomesTop3RecyclerAdapter(Context context, List<Top3IncomeTypes> incomeTypes){
         this.context = context;
         this.incomeTypes = incomeTypes;
     }
@@ -50,11 +50,11 @@ public class IncomesTop3RecyclerAdapter extends RecyclerView.Adapter<IncomesTop3
 
     @Override
     public void onBindViewHolder(IncomeViewHolder holder, int position) {
-        IncomeType incomeType = incomeTypes.get(position);
-        int id = context.getResources().getIdentifier(incomeType.getImage(),"mipmap", context.getPackageName());
+        Top3IncomeTypes expenseType = incomeTypes.get(position);
+        int id = context.getResources().getIdentifier(expenseType.getIncomeTypeIcon(),"mipmap", context.getPackageName());
         holder.incomeIcon.setImageResource(id);
-        holder.incomeName.setText(incomeType.getTypeName());
-        holder.incomeCost.setText("10");
+        holder.incomeName.setText(expenseType.getIncomeTypeName());
+        holder.incomeCost.setText(expenseType.getIncomeTypeCost().toString());
         holder.incomeCurrency.setText("HRK");
     }
 

@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 import com.example.bunic.database.Expense;
-import com.example.bunic.database.ExpenseType;
 import com.example.bunic.personalspendingtracker.R;
 
 import butterknife.BindView;

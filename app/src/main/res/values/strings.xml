@@ -11,10 +11,17 @@
         <item>Hobbies</item>
     </string-array>
 
-    <string-array name="expenses_recurrence">
+    <string-array name="recurrence">
         <item>Daily</item>
         <item>Weekly</item>
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
+
+    <string-array name="incomes_type">
+        <item>Job</item>
+        <item>Allowance</item>
+        <item>Gift</item>
+    </string-array>
+
 </resources>

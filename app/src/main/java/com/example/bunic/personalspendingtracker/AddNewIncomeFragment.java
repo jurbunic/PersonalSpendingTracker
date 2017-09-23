@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import com.example.bunic.database.Expense;
-import com.example.bunic.database.ExpenseType;
+import com.example.bunic.database.Income;
+import com.example.bunic.database.IncomeType;
 import com.example.bunic.personalspendingtracker.Helpers.DateConverter;
 import com.example.bunic.personalspendingtracker.Helpers.FragmentRefresher;
 
@@ -22,29 +22,27 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Jurica Bunić on 6.3.2017..
+ * Created by jurbunic on 20.09.17..
  */
 
-public class AddNewExpenseFragment extends Fragment{
-
-    @BindView(R.id.spinner_cost_type)
-    Spinner costType;
-    @BindView(R.id.edit_cost_name)
-    EditText costName;
-    @BindView(R.id.edit_financial_cost)
-    EditText financialCost;
+public class AddNewIncomeFragment extends Fragment{
+    @BindView(R.id.spinner_income_type)
+    Spinner incomeType;
+    @BindView(R.id.edit_income_name)
+    EditText incomeName;
+    @BindView(R.id.edit_financial_income)
+    EditText financialincome;
 
     FragmentRefresher fr;
 
-    @BindView(R.id.switch_reacuring_expense)
+    @BindView(R.id.switch_reacuring_income)
     SwitchCompat reacuringSwitch;
     @BindView(R.id.recurrence_options)
     LinearLayout reaccurenceLayout;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_expenses_add_new,container,false);
+        View view = inflater.inflate(R.layout.fragment_income_add_new,container,false);
         ButterKnife.bind(this,view);
         fr = (FragmentRefresher) getArguments().getSerializable("REFRESHER");
         return view;
@@ -55,7 +53,7 @@ public class AddNewExpenseFragment extends Fragment{
         super.onStart();
     }
 
-    @OnClick(R.id.switch_reacuring_expense)
+    @OnClick(R.id.switch_reacuring_income)
     public void onSwitchClick(){
         if(reacuringSwitch.isChecked()){
             reaccurenceLayout.setVisibility(View.VISIBLE);
@@ -63,21 +61,22 @@ public class AddNewExpenseFragment extends Fragment{
             reaccurenceLayout.setVisibility(View.GONE);
         }
     }
-    @OnClick(R.id.expense_new_add_button)
+    @OnClick(R.id.income_new_add_button)
     public void onAddNewClick(){
-        Expense newExpense = new Expense();
-        newExpense.setExpenseType(ExpenseType.expenseType(costType.getSelectedItem().toString()));
-        newExpense.setName(costName.getText().toString());
-        newExpense.setCost(Float.parseFloat(financialCost.getText().toString()));
-        newExpense.setCurrency("HRK");
-        newExpense.setDate(DateConverter.timestampToDate(Calendar.getInstance().getTime()));
-        newExpense.insert();
+        Income newIncome = new Income();
+        newIncome.setType(IncomeType.incomeType(incomeType.getSelectedItem().toString()));
+        newIncome.setName(incomeName.getText().toString());
+        newIncome.setCost(Float.parseFloat(financialincome.getText().toString()));
+        newIncome.setCurrency("HRK");
+        newIncome.setDate(DateConverter.timestampToDate(Calendar.getInstance().getTime()));
+        newIncome.insert();
         getActivity().getFragmentManager().popBackStackImmediate();
         fr.refreshFragment();
     }
-    @OnClick(R.id.expense_new_cancel_button)
+    @OnClick(R.id.income_new_cancel_button)
     public void onCancelClick(){
         getActivity().getFragmentManager().popBackStackImmediate();
         fr.refreshFragment();
     }
+
 }

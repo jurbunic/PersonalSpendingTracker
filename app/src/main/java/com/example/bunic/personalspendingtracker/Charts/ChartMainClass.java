@@ -3,8 +3,7 @@ package com.example.bunic.personalspendingtracker.Charts;
 
 import android.view.View;
 
-import com.example.bunic.database.DailyExpenseChartData;
-import com.example.bunic.database.Expense;
+import com.example.bunic.database.views.DailyExpenseChartData;
 import com.example.bunic.personalspendingtracker.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 
 /**
  * Created by Jurica Bunić on 4.3.2017..

@@ -1,6 +1,7 @@
 package com.example.bunic.personalspendingtracker;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,10 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.example.bunic.database.Income;
 import com.example.bunic.database.IncomeType;
 import com.example.bunic.database.static_data.IncomeTypesData;
+import com.example.bunic.database.views.Top3IncomeTypes;
 import com.example.bunic.personalspendingtracker.Adapters.IncomesTop3RecyclerAdapter;
+import com.example.bunic.personalspendingtracker.Helpers.FragmentRefresher;
+import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.ArrayList;
@@ -27,15 +33,15 @@ import butterknife.OnClick;
  * Created by Jurica Bunić on 5.3.2017..
  */
 
-public class MainIncomeFragment extends Fragment {
+public class MainIncomeFragment extends Fragment implements FragmentRefresher{
 
     @BindView(R.id.income_nav_menu)
     LinearLayout income_menu;
 
-    IncomesTop3RecyclerAdapter adapter;
+    IncomesTop3RecyclerAdapter incomesListAdapter;
     RecyclerView recyclerView;
 
-    List<IncomeType> incomeTypes;
+    List<Top3IncomeTypes> incomeTypes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,23 +54,26 @@ public class MainIncomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         incomeTypes = new ArrayList<>();
+        List<Income> incomeList = new ArrayList<>();
+
         if(SQLite.select().from(IncomeType.class).queryList().isEmpty()){
             IncomeTypesData.writeIncomeTypesToDb();
-            incomeTypes = IncomeType.getAll();
+            incomeTypes = Top3IncomeTypes.getTop3Types();
         }else {
-            incomeTypes = IncomeType.getAll();
+            incomeList = Income.getAll();
+            incomeList.size();
+            incomeTypes = Top3IncomeTypes.getTop3Types();
         }
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.income_list_top3);
-        adapter = new IncomesTop3RecyclerAdapter(getActivity().getApplicationContext(),incomeTypes);
-        adapter.notifyDataSetChanged();
+        incomesListAdapter = new IncomesTop3RecyclerAdapter(getActivity().getApplicationContext(), incomeTypes );
+        incomesListAdapter.notifyDataSetChanged();
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setNestedScrollingEnabled(true);
-        recyclerView.setAdapter(adapter);
-
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setAdapter(incomesListAdapter);
     }
 
     //----------------------Floating Action Menu Navigation-----------------------
@@ -78,4 +87,23 @@ public class MainIncomeFragment extends Fragment {
         }
     }
 
+    @OnClick(R.id.income_nav_add_new_income)
+    public void onNavAddNewIncomeClick(){
+        AddNewIncomeFragment anef = new AddNewIncomeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("REFRESHER", this);
+        anef.setArguments(bundle);
+        StartFragment.ReplaceFragmentInViewPager(anef,getActivity(), R.id.root_main_income);
+    }
+
+    @OnClick(R.id.income_nav_detailed_list)
+    public void onNavDetailedListClick(){
+        Toast.makeText(getActivity().getApplicationContext(),"Not yet implemented :(", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void refreshFragment() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+    }
 }

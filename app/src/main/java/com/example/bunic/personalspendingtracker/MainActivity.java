@@ -9,13 +9,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.example.bunic.personalspendingtracker.Adapters.MainPagerAdapter;
-import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
     @BindView(R.id.tabs)
@@ -50,8 +48,13 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     }
 
     private void setupTabNames(){
+        tabLayout.getTabAt(0).setIcon(getResources().getDrawable(R.mipmap.icon_home));
         tabLayout.getTabAt(0).setText("Home");
+
+        tabLayout.getTabAt(1).setIcon(getResources().getDrawable(R.mipmap.icon_income));
         tabLayout.getTabAt(1).setText("Incomes");
+
+        tabLayout.getTabAt(2).setIcon(getResources().getDrawable(R.mipmap.icon_expenses));
         tabLayout.getTabAt(2).setText("Expenses");
     }
 

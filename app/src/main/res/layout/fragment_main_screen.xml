@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/label_weekly_balance_number"
+            android:id="@+id/txt_weekly_balance"
             android:layout_marginTop="@dimen/activity_vertical_margin"
 
             android:text="0 kn"

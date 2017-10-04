@@ -4,6 +4,7 @@ package com.example.bunic.personalspendingtracker.Charts;
 import android.view.View;
 
 import com.example.bunic.database.views.DailyExpenseChartData;
+import com.example.bunic.personalspendingtracker.Helpers.CurrentWeek;
 import com.example.bunic.personalspendingtracker.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -49,15 +50,7 @@ public class ChartMainClass {
     private BarDataSet getDataSet(){
         yAxisValues = new ArrayList<>();
 
-        Date dateStart = new Date();
-        Date dateEnd = new Date();
-
-        calendar.add(Calendar.DATE,-3);
-        dateStart = calendar.getTime();
-        calendar.add(Calendar.DATE,+7);
-        dateEnd = calendar.getTime();
-
-        expenseList = DailyExpenseChartData.getExpenseByWeekGrouped(dateStart,dateEnd);
+        expenseList = DailyExpenseChartData.getExpenseByWeekGrouped(CurrentWeek.getDateStart(),CurrentWeek.getDateEnd());
         for(int i=0;i<expenseList.size();i++){
             calendar.setTime(expenseList.get(i).getDate());
             yAxisValues.add(new BarEntry(expenseList.get(i).getCost(),calendar.get(Calendar.DAY_OF_WEEK)-2));

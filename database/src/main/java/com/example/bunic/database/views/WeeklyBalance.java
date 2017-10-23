@@ -35,6 +35,17 @@ public class WeeklyBalance extends BaseQueryModel {
                 .where(Expense_Table.date.between(startDate).and(endDate))
                 .groupBy(Expense_Table.date)
                 .querySingle();
-        return String.valueOf(weeklyIncome.getCost()-weeklyExpense.getCost());
+        Double results = 0d;
+        try{
+            if (weeklyIncome != null && weeklyIncome.getCost() != null) {
+                results += weeklyIncome.getCost();
+            }
+            if (weeklyExpense != null && weeklyExpense.getCost() != null){
+                results -= weeklyExpense.getCost();
+            }
+            return String.valueOf(results);
+        }catch (Exception e){
+            return "0";
+        }
     }
 }

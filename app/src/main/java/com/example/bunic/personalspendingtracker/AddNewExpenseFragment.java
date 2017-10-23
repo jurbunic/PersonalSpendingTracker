@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import com.example.bunic.database.Expense;
 import com.example.bunic.database.ExpenseType;
 import com.example.bunic.personalspendingtracker.Helpers.DateConverter;
+import com.example.bunic.personalspendingtracker.Helpers.EventObserver;
 import com.example.bunic.personalspendingtracker.Helpers.FragmentRefresher;
 
 import java.util.Calendar;
@@ -41,6 +42,7 @@ public class AddNewExpenseFragment extends Fragment{
     @BindView(R.id.recurrence_options)
     LinearLayout reaccurenceLayout;
 
+    EventObserver ev;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class AddNewExpenseFragment extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
+        ev = EventObserver.getInstance();
     }
 
     @OnClick(R.id.switch_reacuring_expense)
@@ -73,11 +76,13 @@ public class AddNewExpenseFragment extends Fragment{
         newExpense.setDate(DateConverter.timestampToDate(Calendar.getInstance().getTime()));
         newExpense.insert();
         getActivity().getFragmentManager().popBackStackImmediate();
-        fr.refreshFragment();
+        ev.refreshFragment(fr);
+        ev.refreshFragment("MAIN_SCREEN");
     }
     @OnClick(R.id.expense_new_cancel_button)
     public void onCancelClick(){
         getActivity().getFragmentManager().popBackStackImmediate();
-        fr.refreshFragment();
+
+        ev.refreshFragment(fr);
     }
 }

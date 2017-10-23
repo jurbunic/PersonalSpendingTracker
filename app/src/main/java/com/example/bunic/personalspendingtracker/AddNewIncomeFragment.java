@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import com.example.bunic.database.Income;
 import com.example.bunic.database.IncomeType;
 import com.example.bunic.personalspendingtracker.Helpers.DateConverter;
+import com.example.bunic.personalspendingtracker.Helpers.EventObserver;
 import com.example.bunic.personalspendingtracker.Helpers.FragmentRefresher;
 
 import java.util.Calendar;
@@ -39,6 +40,8 @@ public class AddNewIncomeFragment extends Fragment{
     SwitchCompat reacuringSwitch;
     @BindView(R.id.recurrence_options)
     LinearLayout reaccurenceLayout;
+
+    EventObserver ev;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,12 +74,14 @@ public class AddNewIncomeFragment extends Fragment{
         newIncome.setDate(DateConverter.timestampToDate(Calendar.getInstance().getTime()));
         newIncome.insert();
         getActivity().getFragmentManager().popBackStackImmediate();
-        fr.refreshFragment();
+        ev.refreshFragment(fr);
+        ev.refreshFragment("MAIN_SCREEN");
     }
     @OnClick(R.id.income_new_cancel_button)
     public void onCancelClick(){
         getActivity().getFragmentManager().popBackStackImmediate();
-        fr.refreshFragment();
+        ev = EventObserver.getInstance();
+        ev.refreshFragment(fr);
     }
 
 }

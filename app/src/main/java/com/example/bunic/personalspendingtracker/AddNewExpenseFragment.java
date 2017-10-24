@@ -42,7 +42,7 @@ public class AddNewExpenseFragment extends Fragment{
     @BindView(R.id.recurrence_options)
     LinearLayout reaccurenceLayout;
 
-    EventObserver ev;
+    EventObserver ev = EventObserver.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class AddNewExpenseFragment extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
-        ev = EventObserver.getInstance();
+
     }
 
     @OnClick(R.id.switch_reacuring_expense)

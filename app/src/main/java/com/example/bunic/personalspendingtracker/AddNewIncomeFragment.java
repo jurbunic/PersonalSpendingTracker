@@ -41,7 +41,7 @@ public class AddNewIncomeFragment extends Fragment{
     @BindView(R.id.recurrence_options)
     LinearLayout reaccurenceLayout;
 
-    EventObserver ev;
+    EventObserver ev = EventObserver.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

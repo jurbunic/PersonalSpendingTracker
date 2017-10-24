@@ -27,13 +27,11 @@ public class WeeklyBalance extends BaseQueryModel {
                 .select(Method.sum(Income_Table.cost).as("cost"))
                 .from(Income.class)
                 .where(Income_Table.date.between(startDate).and(endDate))
-                .groupBy(Income_Table.date)
                 .querySingle();
         Expense weeklyExpense = SQLite
                 .select(Method.sum(Expense_Table.cost).as("cost"))
                 .from(Expense.class)
                 .where(Expense_Table.date.between(startDate).and(endDate))
-                .groupBy(Expense_Table.date)
                 .querySingle();
         Double results = 0d;
         try{

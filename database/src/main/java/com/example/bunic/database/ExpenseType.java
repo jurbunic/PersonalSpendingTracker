@@ -8,13 +8,14 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.util.List;
+
 import static com.raizlabs.android.dbflow.sql.language.SQLite.select;
 
 /**
  * Created by Jurica Bunić on 8.3.2017..
  */
 @Table(database = MainDatabase.class)
-public class ExpenseType extends BaseModel{
+public class ExpenseType extends BaseModel implements TransactionType{
     @PrimaryKey(autoincrement = true)
     @Column int id;
     @Column String image;
@@ -43,18 +44,21 @@ public class ExpenseType extends BaseModel{
         this.typeName = typeName;
     }
 
+    @Override
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
     }
+    @Override
     public String getTypeName() {
         return typeName;
     }
     public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
+    @Override
     public String getImage() {
         return image;
     }
@@ -64,6 +68,11 @@ public class ExpenseType extends BaseModel{
 
     public static List<ExpenseType> getAll(){
         return select().from(ExpenseType.class).where().queryList();
+    }
+
+    @Override
+    public List<? extends Transaction> getTransactionList() {
+        return getExpenseList();
     }
 
     public List<Expense> getExpenseList(){

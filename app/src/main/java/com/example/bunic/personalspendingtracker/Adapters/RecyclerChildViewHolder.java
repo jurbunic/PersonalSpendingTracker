@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
-import com.example.bunic.database.Expense;
+import com.example.bunic.database.Transaction;
 import com.example.bunic.personalspendingtracker.R;
 
 import butterknife.BindView;
@@ -15,10 +15,10 @@ import butterknife.ButterKnife;
 import butterknife.OnLongClick;
 
 /**
- * Created by Jurica Bunić on 12.3.2017..
+ * Created by jurbunic on 06.11.17..
  */
 
-public class ExpenseViewHolder extends ChildViewHolder {
+public class RecyclerChildViewHolder extends ChildViewHolder {
     @BindView(R.id.expense_list_item_child_name)
     TextView mExpenseName;
     @BindView(R.id.expense_list_item_child_cost)
@@ -26,22 +26,22 @@ public class ExpenseViewHolder extends ChildViewHolder {
     @BindView(R.id.expense_list_item_child_currency)
     TextView mExpenseCurrency;
 
-    ExpensesRecyclerAdapter mAdapter;
-    private Expense mExpense;
+    RecyclerAdapter mAdapter;
+    private Transaction mTransaction;
     View mItemView;
 
-    public ExpenseViewHolder(@NonNull View itemView, ExpensesRecyclerAdapter adapter) {
+    public RecyclerChildViewHolder(@NonNull View itemView, RecyclerAdapter adapter) {
         super(itemView);
         this.mItemView = itemView;
         mAdapter = adapter;
         ButterKnife.bind(this,itemView);
     }
 
-    public void bind(Expense expense){
-        mExpense = expense;
-        mExpenseName.setText(expense.getName());
-        mExpenseCost.setText(expense.getCost().toString());
-        mExpenseCurrency.setText(expense.getCurrency());
+    public void bind(Transaction transaction){
+        mTransaction = transaction;
+        mExpenseName.setText(transaction.getName());
+        mExpenseCost.setText(transaction.getCost().toString());
+        mExpenseCurrency.setText(transaction.getCurrency());
     }
 
     @OnLongClick(R.id.expense_list_item_child)
@@ -54,9 +54,9 @@ public class ExpenseViewHolder extends ChildViewHolder {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 // Deleting expense from local database
-                mExpense.delete();
+                mTransaction.delete();
                 // Deleting in list items
-                mAdapter.getParentList().get(getParentAdapterPosition()).getChildList().remove(getChildAdapterPosition());
+                ((RecyclerExpandableItem) mAdapter.getParentList().get(getParentAdapterPosition())).getChildList().remove(getChildAdapterPosition());
                 mAdapter.notifyChildRemoved(getParentAdapterPosition(), getChildAdapterPosition());
                 mAdapter.notifyDataSetChanged();
                 alertDialog.dismiss();

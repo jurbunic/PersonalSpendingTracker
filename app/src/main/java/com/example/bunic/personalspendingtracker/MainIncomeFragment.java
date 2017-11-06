@@ -3,6 +3,7 @@ package com.example.bunic.personalspendingtracker;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.example.bunic.database.IncomeType;
 import com.example.bunic.database.static_data.IncomeTypesData;
 import com.example.bunic.database.views.Top3IncomeTypes;
 import com.example.bunic.personalspendingtracker.Adapters.IncomesTop3RecyclerAdapter;
+import com.example.bunic.personalspendingtracker.Helpers.EventObserver;
 import com.example.bunic.personalspendingtracker.Helpers.FragmentRefresher;
 import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -48,6 +50,13 @@ public class MainIncomeFragment extends Fragment implements FragmentRefresher{
         View view = inflater.inflate(R.layout.fragment_income_main, container, false);
         ButterKnife.bind(this,view);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        EventObserver ev = EventObserver.getInstance();
+        ev.addFragmentToHashMap("MAIN_INCOME", this);
     }
 
     @Override
@@ -98,7 +107,11 @@ public class MainIncomeFragment extends Fragment implements FragmentRefresher{
 
     @OnClick(R.id.income_nav_detailed_list)
     public void onNavDetailedListClick(){
-        Toast.makeText(getActivity().getApplicationContext(),"Not yet implemented :(", Toast.LENGTH_SHORT).show();
+        IncomesDetailedListFragment idlf = new IncomesDetailedListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("REFRESHER", this);
+        idlf.setArguments(bundle);
+        StartFragment.ReplaceFragmentInViewPager(idlf,getActivity(), R.id.root_main_income);
     }
 
     @Override

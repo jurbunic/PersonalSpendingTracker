@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,10 +37,15 @@ public class MainScreenFragment extends Fragment implements FragmentRefresher {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         EventObserver ev = EventObserver.getInstance();
         ev.addFragmentToHashMap("MAIN_SCREEN", this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         weeklyBalance.setText(WeeklyBalance.getWeeklyBalance(CurrentWeek.getDateStart(),CurrentWeek.getDateEnd()));
     }
 

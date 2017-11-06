@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Jurica Bunić on 8.3.2017..
  */
 @Table(database = MainDatabase.class)
-public class Expense extends BaseModel {
+public class Expense extends BaseModel implements Transaction {
     @PrimaryKey(autoincrement = true)
     @Column int id;
     @Column String name;
@@ -38,29 +38,37 @@ public class Expense extends BaseModel {
         this.expenseType = expenseType;
     }
 
+    @Override
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
     }
+    @Override
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
     }
+    @Override
     public Float getCost() {
         return cost;
     }
     public void setCost(Float cost) {
         this.cost = cost;
     }
+    @Override
     public String getCurrency() {
         return currency;
     }
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+    @Override
+    public TransactionType getTransactionType() {
+        return expenseType;
     }
     public ExpenseType getExpenseType() {
         return expenseType;
@@ -68,6 +76,7 @@ public class Expense extends BaseModel {
     public void setExpenseType(ExpenseType expenseType) {
         this.expenseType = expenseType;
     }
+    @Override
     public Date getDate() {
         return date;
     }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bunic.database.ExpenseType;
+import com.example.bunic.database.IncomeType;
 import com.example.bunic.database.TransactionType;
 import com.example.bunic.personalspendingtracker.Adapters.RecyclerAdapter;
 import com.example.bunic.personalspendingtracker.Adapters.RecyclerExpandableItem;
@@ -20,11 +21,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Jurica Bunić on 9.3.2017..
+ * Created by jurbunic on 06.11.17..
  */
 
-public class ExpensesDetailedListFragment extends Fragment {
-
+public class IncomesDetailedListFragment extends Fragment {
     @BindView(R.id.expenses_detailed_list)
     RecyclerView mRecyclerView;
 
@@ -40,8 +40,7 @@ public class ExpensesDetailedListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        List<ExpenseType> transactionTypes =  ExpenseType.getAll();
-        //List<TransactionType> transactionTypes = ExpenseType.getAllTransactions();
+        List<IncomeType> transactionTypes =  IncomeType.getAll();
         List<RecyclerExpandableItem> parents =new ArrayList<>();
         if(transactionTypes != null){
             for(TransactionType type : transactionTypes){

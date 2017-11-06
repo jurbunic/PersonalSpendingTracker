@@ -3,6 +3,7 @@ package com.example.bunic.personalspendingtracker;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.example.bunic.database.static_data.ExpenseTypesData;
 import com.example.bunic.database.views.Top3ExpenseTypes;
 import com.example.bunic.personalspendingtracker.Adapters.ExpensesTop3RecyclerAdapter;
 import com.example.bunic.personalspendingtracker.Charts.ChartMainClass;
+import com.example.bunic.personalspendingtracker.Helpers.EventObserver;
 import com.example.bunic.personalspendingtracker.Helpers.FragmentRefresher;
 import com.example.bunic.personalspendingtracker.Helpers.StartFragment;
 import com.github.mikephil.charting.charts.BarChart;
@@ -50,6 +52,13 @@ public class MainExpensesFragment extends Fragment implements FragmentRefresher{
         View view = inflater.inflate(R.layout.fragment_expenses_main,container,false);
         ButterKnife.bind(this,view);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        EventObserver ev = EventObserver.getInstance();
+        ev.addFragmentToHashMap("MAIN_EXPENSE", this);
     }
 
     @Override

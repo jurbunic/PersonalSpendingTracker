@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.example.bunic.personalspendingtracker.Adapters.MainPagerAdapter;
+import com.example.bunic.personalspendingtracker.Helpers.EventObserver;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
     private Toolbar toolbar;
     private FragmentManager mFragmentManager;
+    EventObserver observer = EventObserver.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         super.onBackPressed();
         if(mFragmentManager.getBackStackEntryCount()<0){
             this.finish();
+        }else{
+            observer.refreshAll();
         }
     }
 
